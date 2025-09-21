@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Mobile Price</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #0056b3; }
+        form { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .form-group { display: flex; flex-direction: column; }
+        label { margin-bottom: 5px; font-weight: bold; }
+        input, select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        .submit-btn { grid-column: 1 / -1; padding: 12px; background-color: #28a745; color: white; border: none; cursor: pointer; font-size: 1.1em; border-radius: 5px; }
+        .submit-btn:hover { background-color: #218838; }
+        .result { margin-top: 25px; padding: 15px; background-color: #e2e3e5; border-left: 5px solid #007bff; font-size: 1.2em; }
+        nav a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; }
+        nav a:hover { background-color: #5a6268; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Mobile Phone Price</h1>
+        <p>Enter the phone's specifications below to predict its price range.</p>
+        <hr>
+
+        <form action="/predict" method="post">
+            <div class="form-group"><label>Battery Power (mAh)</label><input type="number" name="battery_power" placeholder="e.g., 1021" required></div>
+            <div class="form-group"><label>Processor Speed (GHz)</label><input type="number" step="0.1" name="clock_speed" placeholder="e.g., 2.2" required></div>
+            <div class="form-group"><label>Front Camera (MP)</label><input type="number" name="fc" placeholder="e.g., 1" required></div>
+            <div class="form-group"><label>Internal Memory (GB)</label><input type="number" name="int_memory" placeholder="e.g., 53" required></div>
+            <div class="form-group"><label>Mobile Depth (cm)</label><input type="number" step="0.1" name="m_dep" placeholder="e.g., 0.7" required></div>
+            <div class="form-group"><label>Weight (gm)</label><input type="number" name="mobile_wt" placeholder="e.g., 136" required></div>
+            <div class="form-group"><label>Processor Core Count</label><input type="number" name="n_cores" placeholder="e.g., 8" required></div>
+            <div class="form-group"><label>Primary Camera (MP)</label><input type="number" name="pc" placeholder="e.g., 6" required></div>
+            <div class="form-group"><label>Pixel Height</label><input type="number" name="px_height" placeholder="e.g., 905" required></div>
+            <div class="form-group"><label>Pixel Width</label><input type="number" name="px_width" placeholder="e.g., 1988" required></div>
+            <div class="form-group"><label>RAM (MB)</label><input type="number" name="ram" placeholder="e.g., 2631" required></div>
+            <div class="form-group"><label>Screen Height (cm)</label><input type="number" name="sc_h" placeholder="e.g., 17" required></div>
+            <div class="form-group"><label>Screen Width (cm)</label><input type="number" name="sc_w" placeholder="e.g., 3" required></div>
+            <div class="form-group"><label>Talk Time (hours)</label><input type="number" name="talk_time" placeholder="e.g., 7" required></div>
+
+            <div class="form-group"><label>Bluetooth</label><select name="blue"><option value="1">Yes</option><option value="0">No</option></select></div>
+            <div class="form-group"><label>Dual SIM</label><select name="dual_sim"><option value="1">Yes</option><option value="0">No</option></select></div>
+            <div class="form-group"><label>4G</label><select name="four_g"><option value="1">Yes</option><option value="0">No</option></select></div>
+            <div class="form-group"><label>3G</label><select name="three_g"><option value="1">Yes</option><option value="0">No</option></select></div>
+            <div class="form-group"><label>Touch Screen</label><select name="touch_screen"><option value="1">Yes</option><option value="0">No</option></select></div>
+            <div class="form-group"><label>WiFi</label><select name="wifi"><option value="1">Yes</option><option value="0">No</option></select></div>
+            
+            <button type="submit" class="submit-btn">Predict Price Range</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Prediction Result</h2>
+            <p>The predicted price range for this phone is: <strong>{{ prediction }}</strong></p>
+        </div>
+        {% endif %}
+        
+        <nav>
+            <a href="/">&larr; Back to Model Stats</a>
+        </nav>
+    </div>
+</body>
+</html>

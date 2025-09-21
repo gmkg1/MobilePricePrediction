@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Price Prediction - Stats</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #0056b3; }
+        .accuracy { font-size: 1.5em; font-weight: bold; color: #28a745; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        nav a { display: inline-block; margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        nav a:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mobile Phone Pricing Model Performance</h1>
+        <hr>
+        <h2>Overall Accuracy</h2>
+        <p class="accuracy">Model Accuracy: {{ "%.2f"|format(accuracy * 100) }}%</p>
+
+        <h2>Classification Report</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>Support</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for label, metrics in report_items %}
+                    {% if metrics.precision is defined %}
+                    <tr>
+                        <td>{{ label }}</td>
+                        <td>{{ "%.2f"|format(metrics.precision) }}</td>
+                        <td>{{ "%.2f"|format(metrics.recall) }}</td>
+                        <td>{{ "%.2f"|format(metrics['f1-score']) }}</td>
+                        <td>{{ metrics.support }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav>
+            <a href="/predict">Go to Prediction Page &rarr;</a>
+        </nav>
+    </div>
+</body>
+</html>
